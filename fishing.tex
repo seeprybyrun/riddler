@@ -42,7 +42,7 @@ The expectation can be evaluated as the integral
 	\[ \int_0^1 y \one_{y \geq X_1} \, dy = \int_{X_1}^1 y \,dy = \frac{1}{2} [y^2]_{X_1}^1 = \frac{1}{2}(1-X_1^2). \]
 Therefore, the bear should eat the first fish iff $X_1 + \frac{1}{2}(1 - X^2) \leq \frac{1}{2}$. The inequality can be simplified to $2X_1 \leq X^2$, which is satisfied for all $X_1 \in [0,1]$. Therefore, the bear should \emph{always} eat the first fish.
 
-Incidentally, the expected amount of fish the bear eats with this strategy is $\E[X_1 + \frac{1}{2}(1-X_1^2)] = \frac{1}{2} + \frac{1}{2} - \frac{1}{2}\E{X_1^2} = \frac{2}{3}$.
+Incidentally, the expected amount of fish the bear eats with this strategy is $\E[X_1 + \frac{1}{2}(1-X_1^2)] = \frac{1}{2} + \frac{1}{2} - \frac{1}{2}\E{X_1^2} = 1 - \frac{1}{2}\int_0^1 x^2 \,dx = \frac{2}{3}$.
 
 \section{Three Fish}
 
@@ -83,7 +83,7 @@ Moreover, taking the derivative of the left-hand side yields $6X_1^2 + 6X_1 - 6$
 However, the function would need to cross twice (because it is continuous: once going above the $x$-axis and once going below). By Rolle's theorem, between any two roots of a differentiable function lies a root of its derivative. Because there are no roots of its derivative in the interval $(-\bar{\ph},1]$, the function $2X_1^3 + 3X_1^2 - 6X_1 - 1$ cannot cross the $x$-axis. Thus, $2X_1^3 + 3X_1^2 - 6X_1 - 1 \leq 0$ for all $X_1$ between $0$ and $1$.
 
 The optimal strategy for the bear is therefore to always eat the first fish; then to eat the second fish if possible; and then to eat the third fish if possible. With this strategy, the expected amount of fish eaten is 
-	\[ \frac{1}{6} \int_0^1 -2x^3 - 3x^2 + 6x + 5 \, dx = \frac{13}{12}. \]
+	\[ \E\left[ \frac{1}{6}(-2X_1^3 - 3X_1^2 + 6X_1 + 5)\right] = \frac{1}{6} \int_0^1 -2x^3 - 3x^2 + 6x + 5 \, dx = \frac{13}{12}. \]
 
 % Recall that skipping the first fish leads to an expected intake of $2/3$. Therefore, in order for eating the first fish to be the optimal strategy for the bear, the following inequality must be satisfied (after making the change of variables $Y = 1-X_1$):
 % 	\[ (1-Y) + \frac{5}{6} - \frac{1}{2}Y\left( Y + 1 - \frac{1}{3} Y^2 \right) + \frac{1}{2}(1-(1-Y)^2) (1-Y) \geq 2/3, \]
