@@ -1,0 +1,222 @@
+% usage: include \input{filename} at the beginning of your .tex file
+
+\documentclass[12pt,notitlepage]{article}
+
+\usepackage{tikz}
+%\usepprackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{fullpage}
+\usepackage[letterpaper]{geometry}
+\usepackage{array}
+\usepackage{amsthm,amsmath,amssymb,amsfonts}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{cleveref}
+%\usepackage{parskip}
+\usepackage{url}
+\usepackage{listings}
+
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{claim}{Claim}{Claims}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{fact}{Fact}{Facts}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{proposition}{Proposition}{Proposition}
+
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{theorem}[conjecture]{Theorem}
+\newtheorem{corollary}[conjecture]{Corollary}
+\newtheorem{proposition}[conjecture]{Proposition}
+\newtheorem{lemma}[conjecture]{Lemma}
+\newtheorem{definition}[conjecture]{Definition}
+\newtheorem{observation}[conjecture]{Observation}
+\newtheorem{claim}[conjecture]{Claim}
+\newtheorem{fact}[conjecture]{Fact}
+
+%%% Spacing
+\onehalfspacing
+% other options: \singlespacing, \doublespacing
+
+%%% New Operators
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\lub}{lub}
+\DeclareMathOperator{\num}{num}
+\DeclareMathOperator{\ORD}{ord}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\SPAN}{span}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\vol}{vol}
+
+%%% Shortcuts for Blackboard-bold Letters
+  \newcommand{\A}{\mathbb{A}}
+  \newcommand{\B}{\mathbb{B}}
+  \newcommand{\C}{\mathbb{C}}
+  \newcommand{\D}{\mathbb{D}}
+  \newcommand{\E}{\mathbb{E}}
+  \newcommand{\F}{\mathbb{F}}
+  \newcommand{\G}{\mathbb{G}}
+\newcommand{\Hbb}{\mathbb{H}}
+  \newcommand{\I}{\mathbb{I}}
+  \newcommand{\J}{\mathbb{J}}
+  \newcommand{\K}{\mathbb{K}}
+\newcommand{\Lbb}{\mathbb{L}}
+  \newcommand{\M}{\mathbb{M}}
+  \newcommand{\N}{\mathbb{N}}
+\newcommand{\Obb}{\mathbb{O}}
+\newcommand{\Pbb}{\mathbb{P}}
+  \newcommand{\Q}{\mathbb{Q}}
+  \newcommand{\R}{\mathbb{R}}
+\newcommand{\Sbb}{\mathbb{S}}
+  \newcommand{\T}{\mathbb{T}}
+  \newcommand{\U}{\mathbb{U}}
+  \newcommand{\V}{\mathbb{V}}
+  \newcommand{\W}{\mathbb{W}}
+  \newcommand{\X}{\mathbb{X}}
+  \newcommand{\Y}{\mathbb{Y}}
+  \newcommand{\Z}{\mathbb{Z}}
+
+%%% Shortcuts for Script Letters
+\newcommand{\As}{\mathcal{A}}
+\newcommand{\Bs}{\mathcal{B}}
+\newcommand{\Cs}{\mathcal{C}}
+\newcommand{\Ds}{\mathcal{D}}
+\newcommand{\Es}{\mathcal{E}}
+\newcommand{\Fs}{\mathcal{F}}
+\newcommand{\Gs}{\mathcal{G}}
+\newcommand{\Hs}{\mathcal{H}}
+\newcommand{\Is}{\mathcal{I}}
+\newcommand{\Js}{\mathcal{J}}
+\newcommand{\Ks}{\mathcal{K}}
+\newcommand{\Ls}{\mathcal{L}}
+\newcommand{\Ms}{\mathcal{M}}
+\newcommand{\Ns}{\mathcal{N}}
+\newcommand{\Os}{\mathcal{O}}
+\newcommand{\Ps}{\mathcal{P}}
+\newcommand{\Qs}{\mathcal{Q}}
+\newcommand{\Rs}{\mathcal{R}}
+\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Ts}{\mathcal{T}}
+\newcommand{\Us}{\mathcal{U}}
+\newcommand{\Vs}{\mathcal{V}}
+\newcommand{\Ws}{\mathcal{W}}
+\newcommand{\Xs}{\mathcal{X}}
+\newcommand{\Ys}{\mathcal{Y}}
+\newcommand{\Zs}{\mathcal{Z}}
+
+%%% Shortcuts for boldface letters (usually used for vectors)
+\newcommand{\Av}{\mathbf{A}}
+\newcommand{\Bv}{\mathbf{B}}
+\newcommand{\Cv}{\mathbf{C}}
+\newcommand{\Dv}{\mathbf{D}}
+\newcommand{\Ev}{\mathbf{E}}
+\newcommand{\Fv}{\mathbf{F}}
+\newcommand{\Gv}{\mathbf{G}}
+\newcommand{\Hv}{\mathbf{H}}
+\newcommand{\Iv}{\mathbf{I}}
+\newcommand{\Jv}{\mathbf{J}}
+\newcommand{\Kv}{\mathbf{K}}
+\newcommand{\Lv}{\mathbf{L}}
+\newcommand{\Mv}{\mathbf{M}}
+\newcommand{\Nv}{\mathbf{N}}
+\newcommand{\Ov}{\mathbf{O}}
+\newcommand{\Pv}{\mathbf{P}}
+\newcommand{\Qv}{\mathbf{Q}}
+\newcommand{\Rv}{\mathbf{R}}
+\newcommand{\Sv}{\mathbf{S}}
+\newcommand{\Tv}{\mathbf{T}}
+\newcommand{\Uv}{\mathbf{U}}
+\newcommand{\Vv}{\mathbf{V}}
+\newcommand{\Wv}{\mathbf{W}}
+\newcommand{\Xv}{\mathbf{X}}
+\newcommand{\Yv}{\mathbf{Y}}
+\newcommand{\Zv}{\mathbf{Z}}
+\newcommand{\av}{\mathbf{a}}
+\newcommand{\bv}{\mathbf{b}}
+\newcommand{\cv}{\mathbf{c}}
+\newcommand{\dv}{\mathbf{d}}
+\newcommand{\ev}{\mathbf{e}}
+\newcommand{\fv}{\mathbf{f}}
+\newcommand{\gv}{\mathbf{g}}
+\newcommand{\hv}{\mathbf{h}}
+\newcommand{\iv}{\mathbf{i}}
+\newcommand{\jv}{\mathbf{j}}
+\newcommand{\kv}{\mathbf{k}}
+\newcommand{\lv}{\mathbf{l}}
+\newcommand{\mv}{\mathbf{m}}
+\newcommand{\nv}{\mathbf{n}}
+\newcommand{\ov}{\mathbf{o}}
+\newcommand{\pv}{\mathbf{p}}
+\newcommand{\qv}{\mathbf{q}}
+\newcommand{\rv}{\mathbf{r}}
+\newcommand{\sv}{\mathbf{s}}
+\newcommand{\tv}{\mathbf{t}}
+\newcommand{\uv}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\wv}{\mathbf{w}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\zv}{\mathbf{z}}
+\newcommand{\zerov}{\mathbf{0}}
+
+%%% Shortcuts for Fraktur (blackletter) Letters
+\newcommand{\afr}{\mathfrak{a}}
+\newcommand{\bfr}{\mathfrak{b}}
+\newcommand{\mfr}{\mathfrak{m}}
+\newcommand{\pfr}{\mathfrak{p}}
+\newcommand{\qfr}{\mathfrak{q}}
+
+%%% Macros for Symbols, Etc.
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\bdy}{\partial}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dd}[2]{\frac{d #1}{d #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\divs}{\mid}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\grad}{\nabla}
+\newcommand{\ind}{\mathds{1}}
+\newcommand{\inprod}[2]{\left\langle #1 , #2 \right\rangle}
+\newcommand{\intr}[1]{{#1}^\circ}
+\newcommand{\inv}{^{-1}}
+\newcommand{\isom}{\cong}
+\newcommand{\lapl}{\Delta}
+\newcommand{\meas}[1]{\left| #1 \right|}
+\newcommand{\ndivs}{\nmid}
+\newcommand{\norm}[1]{\left| \left| #1 \right| \right|}
+\newcommand{\pdd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ph}{\varphi}
+\newcommand{\qaq}{\quad\text{and}\quad}
+\newcommand{\qoq}{\quad\text{or}\quad}
+\newcommand{\qtq}[1]{\quad\text{#1}\quad}
+\newcommand{\seq}[1]{\left\{ #1 \right\}}
+\newcommand{\set}[2]{\left\{ #1 : #2 \right\}}
+\newcommand{\size}[1]{\left| #1 \right|}
+\newcommand{\wo}{\setminus}
+\newcommand{\Zm}[1]{\Z/#1\Z}
+
+%%% Arrows
+\newcommand{\decrto}{\searrow}
+\newcommand{\incrto}{\nearrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\isomto}{\stackrel{\sim}{\rightarrow}}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\toinm}{\stackrel{m}{\longrightarrow}}
+\newcommand{\toweak}{\rightharpoonup}
+
+%%% More Redefined Commands
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\th}{^\textrm{th}}
+\renewcommand{\tilde}{\widetilde}
+  \newcommand{\ul}[1]{\underline{#1}}

@@ -1,0 +1,126 @@
+\input{./preamble.tex}
+
+\usepackage{url}
+
+\DeclareMathOperator{\cmax}{cmax}
+\DeclareMathOperator{\cmin}{cmin}
+
+\newcommand{\code}[1]{\lstinline[basicstyle=\ttfamily]|#1|}
+
+\newcommand{\clsP}{\textbf{P}}
+\newcommand{\clsNP}{\textbf{NP}}
+\newcommand{\clscoNP}{\textbf{coNP}}
+
+\newcommand{\encode}[1]{\left\langle #1 \right\rangle}
+\newcommand{\len}[1]{\left| #1 \right|}
+
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\newcommand{\NOT}[1]{\neg{#1}}
+\newcommand{\IMPLIES}{\Rightarrow}
+\newcommand{\IFF}{\Leftrightarrow}
+
+\newcommand{\blank}{\sqcup}
+
+\newcommand{\one}{\mathbf{1}}
+
+\begin{document}
+
+
+\section{Two Fish}
+
+On a two-hour tour, the bear will encounter two fish. Let $X_1$ denote the weight of the first fish, and let $X_2$ denote the weight of the second fish. If the bear eats the first fish and then eats the second fish if possible, then the total amount of fish it eats is 
+	\[ F_1 = X_1 + X_2 \cdot \one_{X_2 \geq X_1}, \]
+where $\one_A$ denotes the indicator function of event $A$. If the bear skips the first fish and eats the second, then the total amount of fish it eats is $F_2 = X_2$.
+
+Upon seeing the first fish (and learning $X_1$), the bear must decide whether to eat it or not. To maximize the total expected amount of fish it eats, the bear should eat the first fish if and only if $\E[F_1|X_1] \geq \E[F_2|X_1]$; that is,
+	\[ \E[X_1 + X_2 \cdot \one_{X_2 \geq X_1}|X_1] \geq \E[X_2|X_1] = \E{X_2}. \]
+Because $X_1$ is given, we treat it as a constant with respect to the expected value. Additionally, since $X_2$ is uniformly distributed between $0$ and $1$, we know that $\E{X_2} = 1/2$. Thus we seek to solve
+	\[ X_1 + \E[X_2 \cdot \one_{X_2 \geq X_1}|X_1] \geq 1/2. \]
+
+The expectation can be evaluated as the integral
+	\[ \int_0^1 y \one_{y \geq X_1} \, dy = \int_{X_1}^1 y \,dy = \frac{1}{2} [y^2]_{X_1}^1 = \frac{1}{2}(1-X_1^2). \]
+Therefore, the bear should eat the first fish iff $X_1 + \frac{1}{2}(1 - X^2) \leq \frac{1}{2}$. The inequality can be simplified to $2X_1 \leq X^2$, which is satisfied for all $X_1 \in [0,1]$. Therefore, the bear should \emph{always} eat the first fish.
+
+Incidentally, the expected amount of fish the bear eats with this strategy is $\E[X_1 + \frac{1}{2}(1-X_1^2)] = \frac{1}{2} + \frac{1}{2} - \frac{1}{2}\E{X_1^2} = \frac{2}{3}$.
+
+\section{Three Fish}
+
+On a three-hour tour, a three-hour tour, the bear will encounter three fish. If the bear skips the first fish, then the problem reduces to the case of two fish; the bear should always eat the second fish and then the third (if possible) to maximize its expected fish intake. As computed above, the expected amount of fish the bear eats with this strategy is $2/3$ kilograms.
+
+Suppose now the bear eats the first fish (whose weight is $X_1$). Then, with probability $1-X_1$, the bear will have the option to eat the second fish (whose weight is $X_2$); and with probability $X_1$, the bear must skip the second fish. Finally, with probability $1-X_1$ (if the second fish is skipped) or with probability $1-X_2$ (if the second fish is eaten), the bear eats the third fish (whose weight is $X_3$).
+
+Suppose the bear must skip the second fish because it is lighter than $X_1$. Then the expected amount of fish eaten by the bear is $X_1 + \E[X_3 \cdot \one_{X_3 \geq X_1}|X_1] = X_1 + \frac{1}{2}(1-X_1^2)$, as before.
+
+Suppose the bear has the option to eat the second fish because $X_2 \geq X_1$. If the bear skips it, then its expected amount of fish eaten remains $X_1 + \frac{1}{2}(1-X_1^2)$. If the bear eats the fish, then its expected amount of fish eaten becomes $X_1 + X_2 + \E[X_3 \cdot \one_{X_3 \geq X_2}|X_2] = X_1 + X_2 + \frac{1}{2}(1-X_2^2)$.
+
+Given the option, the bear should therefore choose to eat the second fish iff
+	\[ X_1 + X_2 + \frac{1}{2}(1-X_2^2) \geq X_1 + \frac{1}{2}(1-X_1^2), \]
+or
+	\[ X_2^2 - 2X_2 - X_1^2 \leq 0. \]
+Keeping in mind that $X_1$ is a constant at this point and $X_2$ is the variable, we factor to obtain
+%	\[ X_2 = 1 \pm \sqrt{1 - X_1^2} \]
+	\[ \left(X_2 - 1 - \sqrt{1-X_1^2}\right) \left(X_2 - 1 + \sqrt{1-X_1^2}\right) \leq 0. \]
+Because $X_2^2 - 2X_2 - X_1^2$ is a convex parabola, the inequality is satisfied iff $X_2$ is between the two roots $1 - \sqrt{1-X_1^2}$ and $1 + \sqrt{1-X_1^2}$. Because $X_2 \leq 1 \leq 1 + \sqrt{1-X_1^2}$, we conclude that the bear should eat the second fish iff $X_2 \geq 1 - \sqrt{1-X_1^2}$. However, note that $X_1 \geq 1 - \sqrt{1-X_1^2}$ (to see this, observe that the inequality is true iff $X_1^2 \geq 2 - 2\sqrt{1-X_1^2} - X_1^2$ iff $1 - X_1^2 \leq \sqrt{1-X_1^2}$, which is true for all $0 \leq X_1 \leq 1$). Thus, whenever the bear has the option to eat the second fish, it should eat it.
+
+With this all in mind, we can compute the expected total amount of fish the bear will eat if the bear decides to eat the first fish. Given $X_1$, the bear will eat the second fish iff $X_2 \geq X_1$. Thus, the bear eats 
+\[ X_1 + \E\left[ \left(X_2 + \frac{1}{2}(1-X_2^2) \right) \cdot \one_{X_2 \geq X_1} + 
+	   \frac{1}{2}(1-X_1^2) \cdot \one_{X_2 < X_1} \Big| X_1 \right] \]
+	\[ = X_1 + \E\left[ \left(X_2 + \frac{1}{2}(1-X_2^2) \right) \cdot \one_{X_2 \geq X_1} \Big| X_1 \right] + \frac{1}{2}(1-X_1^2) X_1. \]
+The remaining expectation can be computed as 
+	\[ \int_{X_1}^1 y + \frac{1}{2}(1-y^2) \, dy = \left[\frac{1}{2}y^2 + \frac{1}{2}y - \frac{1}{6}y^3\right]_{X_1}^1 = \frac{5}{6} - \frac{1}{2}\left( X_1^2 + X_1 - \frac{1}{3} X_1^3 \right). \]
+
+Recall that skipping the first fish leads to an expected intake of $2/3$. Therefore, in order for eating the first fish to be the optimal strategy for the bear, the following inequality must be satisfied:
+	\[ X_1 + \frac{5}{6} - \frac{1}{2}\left( X_1^2 + X_1 - \frac{1}{3} X_1^3 \right) + \frac{1}{2}(1-X_1^2) X_1 \geq \frac{2}{3}, \]
+or 
+	\[ \frac{1}{6}(-2X_1^3 - 3X_1^2 + 6X_1 + 5) \geq \frac{2}{3}, \]
+which can be simplified to
+	\[ 2X_1^3 + 3X_1^2 - 6X_1 - 1 \leq 0. \]
+Note that the inequality is satisfied for $X_1 = 0$ and $X_1 = 1$.
+
+Moreover, taking the derivative of the left-hand side yields $6X_1^2 + 6X_1 - 6$, which has only a single root ($-\bar{\ph} = \frac{\sqrt{5}-1}{2}$) between $0$ and $1$. But at $X_1 = 0$, the derivative is negative. If the function were to cross the $x$-axis between $0$ and $1$, the first such crossing must occur when the derivative is positive. Therefore the crossing would occur after the root $-\bar{\ph}$.
+
+However, the function would need to cross twice (because it is continuous: once going above the $x$-axis and once going below). By Rolle's theorem, between any two roots of a differentiable function lies a root of its derivative. Because there are no roots of its derivative in the interval $(-\bar{\ph},1]$, the function $2X_1^3 + 3X_1^2 - 6X_1 - 1$ cannot cross the $x$-axis. Thus, $2X_1^3 + 3X_1^2 - 6X_1 - 1 \leq 0$ for all $X_1$ between $0$ and $1$.
+
+The optimal strategy for the bear is therefore to always eat the first fish; then to eat the second fish if possible; and then to eat the third fish if possible. With this strategy, the expected amount of fish eaten is 
+	\[ \frac{1}{6} \int_0^1 -2x^3 - 3x^2 + 6x + 5 \, dx = \frac{13}{12}. \]
+
+% Recall that skipping the first fish leads to an expected intake of $2/3$. Therefore, in order for eating the first fish to be the optimal strategy for the bear, the following inequality must be satisfied (after making the change of variables $Y = 1-X_1$):
+% 	\[ (1-Y) + \frac{5}{6} - \frac{1}{2}Y\left( Y + 1 - \frac{1}{3} Y^2 \right) + \frac{1}{2}(1-(1-Y)^2) (1-Y) \geq 2/3, \]
+% or 
+% 	\[ \frac{2}{3}Y^3 - 2Y^2 - \frac{1}{2}Y + \frac{7}{6} \geq 0. \]
+% This inequality is satisfied for $0 \leq Y \leq$ approximately $0.72796$.
+
+% Therefore, the bear should eat the first fish iff $X_1 \geq$ approximately $0.27204$; then it should eat the second fish if $X_2 \geq X_1$, and it should eat the third fish if $X_3 \geq \max(X_1,X_2)$. However, if $X_1 \leq $ approximately $0.27204$, then the bear should skip the first fish, eat the second fish, and eat the third fish if $X_3 \geq X_2$.
+
+% With this all in mind, we can compute the expected total amount of fish the bear will eat if the bear decides to eat the first fish. Given $X_1$, the bear will eat the second fish iff $X_2 \geq 1 - \sqrt{1-X_1^2}$. Thus, the bear eats 
+% 	\[ X_1 + \E\left[ \left(X_2 + \frac{1}{2}(1-X_2^2) \right) \cdot \one_{X_2 \geq 1-\sqrt{1-X_1^2}} + 
+% 	   \frac{1}{2}(1-X_1^2) \cdot \one_{X_2 < 1-\sqrt{1-X_1^2}} \Big| X_1 \right] \]
+% 	\[ = X_1 + \E\left[ \left(X_2 + \frac{1}{2}(1-X_2^2) \right) \cdot \one_{X_2 \geq 1-\sqrt{1-X_1^2}} \Big| X_1 \right] + \frac{1}{2}(1-X_1^2) \left(1-\sqrt{1-X_1^2}\right). \]
+% The remaining expectation can be computed as 
+% 	\[ \int_{1-\sqrt{1-X_1^2}}^1 y + \frac{1}{2}(1-y^2) \, dy = \left[\frac{1}{2}y^2 + \frac{1}{2}y - \frac{1}{6}y^3\right]_{1-\sqrt{1-X_1^2}}^1 \]
+% 	\[ = \frac{5}{6} - \frac{1}{2}\left(1-\sqrt{1-X_1^2}\right)\left( \left(1 - \sqrt{1-X_1^2}\right) + 1 - \frac{1}{3} \left(1-\sqrt{1-X_1^2}\right)^2 \right). \]
+
+% Recall that skipping the first fish leads to an expected intake of $2/3$. Therefore, in order for eating the first fish to be the optimal strategy for the bear, $X_1$ must satisfy the following inequality (after making the change of variables $Z = 1 - \sqrt{1-X_1^2}$):
+% % Y^2 = 1 - X_1^2
+% % X_1^2 = 1 - Y^2
+% % X_1 = \sqrt{1-Y^2}
+% % 	\[ \sqrt{1-Y^2} + \frac{5}{6} - \frac{1}{2}(1-Y)\left( (1-Y) + 1 - \frac{1}{3} (1-Y)^2 \right) + \frac{1}{2} Y^2 (1-Y) \geq \frac{2}{3}. \]
+% % Making the change of variables $Z = 1-Y$, we obtain: 
+% % Z = 1-Y => 1+Y = 2-Z
+% 	\[ \sqrt{Z(2-Z)} + \frac{5}{6} - \frac{1}{2}Z\left( Z  + 1 - \frac{1}{3}Z^2 \right) + \frac{1}{2}(1-Z)^2 Z \geq \frac{2}{3}, \]
+% or
+% 	\[ 4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 \geq 0. \]
+% % At $Z = 0$, the inequality is satisfied, and at $Z = 1$, we have 
+% % 	\[ \sqrt{1(2-1)} + \frac{1}{6} - \frac{1}{2}\left( 1  + 1 - \frac{1}{3}1^2 \right) + \frac{1}{2}(1-1)^2 = 1 + \frac{1}{6} - \frac{1}{2}(2 - 1/3) = \frac{7}{6} - 1 + \frac{1}{6} \geq 0. \]
+% Note that $Z$ ranges from $0$ to $1$ because $X_1$ does as well. We consider five cases:
+% \begin{itemize}
+% 	\item If $0 \leq Z \leq 1/3$, then $4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 \geq 1 - 9Z^2 \geq 0$.
+% 	\item If $1/3 \leq Z \leq 1/2$, then $4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 \geq 6\sqrt{Z(2-Z)} - 9Z^2 \geq 6/\sqrt{2} - 9/4 > 0$.
+% 	\item If $1/2 \leq Z \leq 2/3$, then $4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 \geq 3/2 + 6\sqrt{2/3} - 4 > 0$.
+% 	\item If $2/3 \leq Z \leq 7/8$, then $4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 \geq 32/27 + 6\sqrt{3/4} + 1 - 9(7/8)^2 > 0$.
+% 	\item Finally, if $7/8 \leq Z \leq 1$, then $4Z^3 - 9Z^2 + 6\sqrt{Z(2-Z)} + 1 geq 4(7/8)^3 + 6\sqrt{7/8} + 1 - 9 > 0$.
+% \end{itemize}
+% In all cases, the inequality is satisfied. Therefore, the bear should eat the first fish it encounters, and then eat the second fish iff $X_2 \geq \sqrt{1-X_1^2}$.
+
+\end{document}
